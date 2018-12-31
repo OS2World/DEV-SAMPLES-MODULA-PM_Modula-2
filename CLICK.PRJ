@@ -1,0 +1,7 @@
+make OS2 EXE
+option +case +map -pack +check +vid +pm +codeview
+model Large
+include %N initpm
+import %O%M_mlib pmjpi
+
+

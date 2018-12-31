@@ -1,0 +1,24 @@
+DEFINITION MODULE Pmwin;
+
+IMPORT Win;
+FROM OS2DEF IMPORT LSET,HAB,HWND;
+
+TYPE
+  Stdwin = CLASS
+    x , y,
+    cx, cy : INTEGER;
+    hab           : HAB;
+    hmq           : Win.HMQ;
+    qmsg          : Win.QMSG;
+    client,
+    hwnd          : HWND;
+    r             : Win.MRESULT;
+
+    PROCEDURE Init(details : LSET; titlestr : ARRAY OF CHAR);
+    PROCEDURE Error;
+    PROCEDURE Done;
+    PROCEDURE Draw;
+    PROCEDURE Process;
+  END;
+
+END Pmwin.

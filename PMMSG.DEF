@@ -1,0 +1,13 @@
+DEFINITION MODULE PMMSG ;
+
+CONST
+  NumMsg = 124;
+
+TYPE
+  ShortStr = ARRAY [0..25] OF CHAR;
+  MsgArray = ARRAY [0..NumMsg] OF ShortStr;
+
+VAR
+  msglist : MsgArray;
+
+END PMMSG.
