@@ -1,0 +1,17 @@
+/* --------- */
+/* STRING.RC */
+/* --------- */
+
+
+#include <os2.h>
+#include "string.h"
+
+STRINGTABLE
+  BEGIN
+    ID_TITLE " - This title is from a resource"
+    ID_MSG "This message is also from a resource"
+  END
+
+
+
+

@@ -4,7 +4,7 @@
 (* Robert Lafore                                                              *)
 (*                                                                            *)
 (* Example programs converted to JPI Modula-2 Version 2 for OS/2 1.2 by       *)
-(* Chris Barker, August 1990                                                  *)
+(* Chris Barker, October 1990                                                 *)
 (*                                                                            *)
 (* Notes:  I am distributing these programs so that others can learn and also *)
 (*         so I can elicit feedback from the user community on programming for*)
@@ -35,14 +35,16 @@
 (*    Source code on page 131.                                                *)
 (*----------------------------------------------------------------------------*)
 
-MODULE RADIOBUT;
-
 (*# call(same_ds => off) *)
+(*# data(heap_size=> 3000) *)
+
+MODULE RADIOBUT;
 
 IMPORT OS2DEF,Win,Gpi,Dos,Lib,SYSTEM,IO;
 FROM OS2DEF IMPORT HDC,HRGN,HAB,HPS,HBITMAP,HWND,HMODULE,HSEM,
                    POINTL,RECTL,PID,TID,LSET,NULL,
                    COLOR,NullVar,NullStr,BOOL ;
+FROM OS2MAC IMPORT SHORT1FROMMP,SHORT2FROMMP,MPFROMSHORT,MPFROM2SHORT;
 
 TYPE
   StrPtr = POINTER TO ARRAY[0..0] OF CHAR;
@@ -129,12 +131,8 @@ BEGIN
         clrOldIndRGB := Win.QuerySysColor(Win.HWND_DESKTOP,Win.SYSCLR_BACKGROUND,
                                           0);
 
-        RETURN Win.MPARAM(TRUE);
-
-
     | Win.WM_CONTROL :
-        cm := Win.COMMANDMSG(mp1);
-        CASE cm.source OF
+        CASE SHORT1FROMMP(mp1) OF
           | ID_BUTTON1 : aclrIndRGB[1] := Gpi.RGB_RED;
           | ID_BUTTON2 : aclrIndRGB[1] := Gpi.RGB_GREEN;
           | ID_BUTTON3 : aclrIndRGB[1] := Gpi.RGB_BLUE;
@@ -147,7 +145,6 @@ BEGIN
         aclrIndRGB[1] := clrOldIndRGB;
         IF NOT Win.SetSysColors(Win.HWND_DESKTOP,0,Gpi.LCOLF_INDRGB,0,2,
                          aclrIndRGB) THEN Error END;
-        RETURN Win.MPARAM(TRUE);
 
     | Win.WM_ERASEBACKGROUND :
         RETURN Win.MPARAM(TRUE);
@@ -212,3 +209,4 @@ BEGIN
   HALT;
 
 END RADIOBUT.
+

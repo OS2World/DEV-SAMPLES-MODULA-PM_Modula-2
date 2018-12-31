@@ -4,7 +4,7 @@
 (* Robert Lafore                                                              *)
 (*                                                                            *)
 (* Example programs converted to JPI Modula-2 Version 2 for OS/2 1.2 by       *)
-(* Chris Barker, August 1990                                                  *)
+(* Chris Barker, October 1990                                                 *)
 (*                                                                            *)
 (* Notes:  I am distributing these programs so that others can learn and also *)
 (*         so I can elicit feedback from the user community on programming for*)
@@ -33,9 +33,11 @@
 (*                                                                            *)
 (*                                                                            *)
 (*----------------------------------------------------------------------------*)
-MODULE SOUND;
 
 (*# call(same_ds => off) *)
+(*# data(heap_size=> 3000) *)
+
+MODULE SOUND;
 
 IMPORT OS2DEF,Win,Gpi,Dos,Lib,SYSTEM;
 FROM OS2DEF IMPORT HAB,NULL;
@@ -57,3 +59,4 @@ BEGIN
   END;
 END SOUND.
 
+

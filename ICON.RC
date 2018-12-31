@@ -1,0 +1,9 @@
+/* ------- */
+/* ICON.RC */
+/* ------- */
+
+#include <os2.h>
+#include "icon.h"
+
+ICON ID_FRAMERC icon.ico
+

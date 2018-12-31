@@ -4,7 +4,7 @@
 (* Robert Lafore                                                              *)
 (*                                                                            *)
 (* Example programs converted to JPI Modula-2 Version 2 for OS/2 1.2 by       *)
-(* Chris Barker, August 1990                                                  *)
+(* Chris Barker, October 1990                                                 *)
 (*                                                                            *)
 (* Notes:  I am distributing these programs so that others can learn and also *)
 (*         so I can elicit feedback from the user community on programming for*)
@@ -34,9 +34,10 @@
 (*                                                                            *)
 (*----------------------------------------------------------------------------*)
 
-MODULE PMTEST;
-
 (*# call(same_ds => off) *)
+(*# data(heap_size=> 3000) *)
+
+MODULE PMTEST;
 
 FROM OS2DEF IMPORT LSET;
 IMPORT Win,Pmwin;
@@ -51,7 +52,7 @@ BEGIN
               Win.FCF_VERTSCROLL    + Win.FCF_HORZSCROLL +
               Win.FCF_SHELLPOSITION + Win.FCF_TASKLIST;
 
-  title := '- My First Window';
+  title := '- My First OOP Window';
 
   win1.Init(features,title);
   win1.Process;

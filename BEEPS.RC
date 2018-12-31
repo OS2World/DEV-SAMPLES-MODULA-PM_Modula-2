@@ -1,0 +1,25 @@
+/* -------- */
+/* BEEPS.RC */
+/* -------- */
+
+
+#include <os2.h>
+#include "beeps.h"
+
+MENU ID_FRAMERC
+  BEGIN
+    SUBMENU "~Beep", ID_BEEP_SUBMENU
+      BEGIN
+        MENUITEM "Sound ~beep", ID_BEEP
+        MENUITEM SEPARATOR
+        MENUITEM "~Note", ID_NOTESEL, , MIA_CHECKED
+        MENUITEM "~Warning", ID_WARNINGSEL
+        MENUITEM "~Error", ID_ERRORSEL
+      END
+
+  MENUITEM "E~xit", ID_EXIT
+END
+
+
+
+

@@ -1,0 +1,15 @@
+/* --------- */
+/* POINTR.RC */
+/* --------- */
+
+
+#include <os2.h>
+#include "pointr.h"
+
+POINTER ID_POINTER pointer.ptr
+
+
+
+
+
+

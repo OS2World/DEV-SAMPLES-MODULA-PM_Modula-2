@@ -1,0 +1,14 @@
+
+/* ------- */
+/* BEEP.RC */
+/* ------- */
+
+#include "beep.h"
+
+MENU ID_FRAMERC
+     BEGIN
+       MENUITEM "~Beep", ID_BEEP
+       MENUITEM "E~xit", ID_EXIT
+     END
+
+

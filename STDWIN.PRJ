@@ -1,7 +1,9 @@
 make OS2 EXE
-option +case +map -pack +check +vid +pm +codeview
+option +case +map +pack +check +vid +pm +codeview
 model Large
+override *.* /v2
 include %N initpm
 import %O%M_mlib pmjpi
+-- run rc %N
 
-
+

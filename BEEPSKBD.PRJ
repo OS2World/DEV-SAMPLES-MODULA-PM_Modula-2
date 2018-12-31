@@ -1,0 +1,9 @@
+make OS2 EXE
+option +case +map +pack +check +vid +pm
+model Large
+override *.* /v2
+include %N initpm
+import %O%M_mlib pmjpi
+run vidrc %N
+
+

@@ -1,0 +1,23 @@
+/* --------- */
+/* CUSTOM.RC */
+/* --------- */
+
+#include <os2.h>
+#include "custom.h"
+
+ICON ID_FRAMERC icon.ico
+
+STRINGTABLE
+   BEGIN
+     ID_TITLE " - This title is from a resource"
+   END
+
+RESOURCE LONGSTRINGRC ID_MSG custom.txt
+
+
+
+
+
+
+
+

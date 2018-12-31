@@ -4,7 +4,7 @@
 (* Robert Lafore                                                              *)
 (*                                                                            *)
 (* Example programs converted to JPI Modula-2 Version 2 for OS/2 1.2 by       *)
-(* Chris Barker, August 1990                                                  *)
+(* Chris Barker, October 1990                                                 *)
 (*                                                                            *)
 (* Notes:  I am distributing these programs so that others can learn and also *)
 (*         so I can elicit feedback from the user community on programming for*)
@@ -35,14 +35,16 @@
 (*    Source code is on page 70.                                              *)
 (*----------------------------------------------------------------------------*)
 
-MODULE DEFWIN;
-
 (*# call(same_ds => off) *)
+(*# data(heap_size=> 3000) *)
+
+MODULE DEFWIN;
 
 IMPORT OS2DEF,Win,Gpi,Dos,Lib,SYSTEM,IO;
 FROM OS2DEF IMPORT HDC,HRGN,HAB,HPS,HBITMAP,HWND,HMODULE,HSEM,
                    POINTL,RECTL,PID,TID,LSET,NULL,
                    COLOR,NullVar,NullStr,BOOL ;
+FROM OS2MAC IMPORT SHORT1FROMMP,SHORT2FROMMP,MPFROMSHORT,MPFROM2SHORT;
 
 TYPE
   StrPtr = POINTER TO ARRAY[0..0] OF CHAR;
@@ -132,3 +134,4 @@ BEGIN
   HALT;
 
 END DEFWIN.
+

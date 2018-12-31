@@ -1,0 +1,38 @@
+/* --------- */
+/* ROTATE.RC */
+/* --------- */
+
+
+#include <os2.h>
+#include "rotate.h"
+
+MENU ID_FRAMERC
+  BEGIN
+    MENUITEM "~Start", ID_START_STOP
+    SUBMENU "~Options", ID_OPTIONS_SUBMENU
+      BEGIN
+        SUBMENU "~Colors", ID_COLORS_SUBMENU
+          BEGIN
+            MENUITEM "Red, Red, Red, White", ID_CSET0
+            MENUITEM "Blue, Blue, Blue, Red", ID_CSET1
+            MENUITEM "Red, White, Red, White", ID_CSET2
+            MENUITEM "Red, Blue, Red, Blue", ID_CSET3
+            MENUITEM "Red, Red, Blue, White", ID_CSET4
+            MENUITEM "Red, Green, Blue, White", ID_CSET5, ,MIA_CHECKED
+          END
+        SUBMENU "~Delay", ID_DELAY_SUBMENU
+          BEGIN
+            MENUITEM "Full Speed", ID_DELAY0000
+            MENUITEM "0.1 Second delay", ID_DELAY0100
+            MENUITEM "0.25 Second delay", ID_DELAY0250, , MIA_CHECKED
+            MENUITEM "0.5 Second delay",  ID_DELAY0500
+            MENUITEM "1 Second delay", ID_DELAY1000
+          END
+        END
+      MENUITEM "E~xit", ID_EXIT
+    END
+
+
+
+
+

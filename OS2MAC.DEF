@@ -1,0 +1,76 @@
+(*# call(o_a_size => off,
+         o_a_copy=>off,
+         result_optional=>on,
+         reg_saved => (si, di, es, ds, st1, st2),
+         reg_param => (),
+         seg_name => none,
+         near_call => off,
+         ds_eq_ss => off) *)
+
+(*# module(implementation=>off, init_code => off) *)
+
+(*# data(near_ptr => off) *)
+
+DEFINITION MODULE OS2MAC;
+
+FROM Win IMPORT MPARAM,MRESULT;
+FROM OS2DEF IMPORT SEL;
+
+(*# save,call(inline=>on) *)
+
+TYPE
+  _C1 = ARRAY[0..0] OF SHORTCARD;
+
+CONST
+  (*%F _fcall *) _Ret = 0C3H; (*%E *)
+  (*%T _fcall *) _Ret = 0CBH; (*%E *)
+  __Ret = _C1(_Ret);
+
+(*# call(reg_param=>(ax,dx),reg_return=>(ax),
+    reg_saved=>(bx,cx,si,di,ds,es,st0,st1,
+                   st2,st3,st4,st5,st6)) *)
+
+INLINE PROCEDURE SHORT1FROMMP(mp : MPARAM) : CARDINAL = __Ret;
+
+(*# call(reg_param=>(dx,ax),reg_return=>(ax),
+    reg_saved=>(bx,cx,si,di,ds,es,st0,st1,
+                   st2,st3,st4,st5,st6)) *)
+
+INLINE PROCEDURE SHORT2FROMMP(mp : MPARAM) : CARDINAL = __Ret;
+
+(*# call(reg_param=>(ax,dx),reg_return=>(ax,dx),
+    reg_saved=>(bx,cx,si,di,ds,es,st0,st1,
+                   st2,st3,st4,st5,st6)) *)
+
+INLINE PROCEDURE MPFROMSHORT(s1 : CARDINAL) : MPARAM = __Ret;
+
+(*# call(reg_param=>(ax,dx),reg_return=>(ax,dx),
+    reg_saved=>(bx,cx,si,di,ds,es,st0,st1,
+                   st2,st3,st4,st5,st6)) *)
+
+INLINE PROCEDURE MPFROM2SHORT(s1,s2 : CARDINAL) : MPARAM = __Ret;
+
+(*# call(reg_param=>(ax,dx),reg_return=>(ax),
+    reg_saved=>(bx,cx,si,di,ds,es,st0,st1,
+                   st2,st3,st4,st5,st6)) *)
+
+INLINE PROCEDURE SHORT1FROMMR(mr : MRESULT) : CARDINAL = __Ret;
+
+(*# call(reg_param=>(ax,dx),reg_return=>(ax,dx),
+    reg_saved=>(bx,cx,si,di,ds,es,st0,st1,
+                   st2,st3,st4,st5,st6)) *)
+
+INLINE PROCEDURE MPFROMCHAR(str : ARRAY OF CHAR) : MPARAM = __Ret;
+
+(* Create untyped far pointer from selector and offset *)
+
+(*# call(reg_param=>(ax,dx),reg_return=>(ax,dx),
+    reg_saved=>(bx,cx,si,di,ds,es,st0,st1,
+                   st2,st3,st4,st5,st6)) *)
+
+INLINE PROCEDURE MAKEP(sel,off : CARDINAL) : CARDINAL = _Ret;
+
+(*# restore *)
+
+END OS2MAC.
+

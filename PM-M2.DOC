@@ -1,0 +1,252 @@
+
+
+
+
+
+
+                  Writing Presentation Manager Programs in Modula-2
+
+                                   by Chris Barker
+
+                                   October 4, 1990
+
+     The files contained in this zipped file constitute my attempt to write OS/2
+     Presentation Manager programs using JPI's Modula-2 for OS/2 version 2.0.  I
+     am both new to Modula-2 and to programming for the Presentation Manager.
+     Previously I have been programming extensively with Turbo Pascal and less
+     extensively with Turbo C.
+
+     Since the preponderance of documentation for writing PM code is in C, I
+     thought the world might benefit from some examples written in another
+     language such as Modula-2.  I have taken a very clearly written book,"OS/2
+     Presentation Manager - Programming Primer" by Asael Dror and Robert Lafore,
+     and adapted their "C" examples to Modula-2.  Hopefully, my adaptions have
+     been correct!
+
+     Personally, I find the protective environment of Pascal/Modula-2 (i.e.
+     strong type checking, promoting modular projects, etc.) a much more
+     comfortable and rewarding programming experience.  I am a very high level
+     minded kind of programmer that would prefer to adapt and reuse mine or
+     someone else's code (OOP?) to get a job done rather than wallowing down in
+     the internals of my computer's CPU.  I am always impressed by the
+     blindingly fast routines of a Zen assembler master like Michael Abrash, but
+     I'd rather work on a higher level.  Jeff Duntemann is programmer I look up
+     to.
+
+     Speaking of OOP, my other reason for being attracted to JPI's M2 for OS/2
+     is its inclusion of object extensions to Modula-2.  The example program,
+     PMTEST, is my own cursory attempt at encapsulating some of the complexity
+     of PM programming using OOPS.  I hope to extend this and leverage some real
+     power.  I hope to hear from others that may be trying the same thing.
+
+     Since I first released this archive to the public in August of 1990, I have
+     learned a lot about programming for PM with JPI's Modula-2.  Special thanks
+     go to Martin Waldron and Don Dumitru of JPI for patiently answering my
+     questions and pointing me down the proper path.  Also, JPI's recent release
+     of version 1.06b of Modula-2 now removes some lingering bugs that had
+     hampered some of my efforts.
+
+     The most significant contribution Don made was to describe the recommended
+     approach to simulating the "C macros", such as SHORTFROMMP, that populate
+     so many PM programs.  The "proper" approach is to define a definition
+     module without an implementation module that contains inline procedures to
+     perform the proper type conversions.  The file, OS2MAC.DEF, contains the
+     definitions for the more commonly called macros.  Other macros can be added
+     by following the syntax shown in the file.
+
+     So far I have gotten through chapter eight of the book and will hopefully
+     update this file as I adapt further examples.  Please read the header
+     comments in each program before you run the program so you will understand
+
+
+     Writing OS/2 PM Programs in Modula-2         October 4, 1990         Page 2
+
+
+
+     what each is supposed to do.  I hope these examples will encourage others
+     to try a hand at PM programming using Modula-2.
+
+     I would love to hear from other programmers.  Please send a message to me,
+     Chris Barker, at one of the following:
+
+         -  Compuserve ID: 72261,2312
+
+         -  Pete Norloff's OS/2 Shareware BBS - (703) 385-4325
+
+         -  Max's Doghouse BBS - (703) 548-7849
+
+            The above two BBS carry the Fidonet OS/2 echo which I read
+            regularly.
+
+         -  Programmer's Corner - (301) 596-1180
+
+         -  CPCUG Mix (Window Sig) BBS - (301) 738-9060
+
+     Enjoy!
+
+     ---------------------------------------------------------------------------
+
+     The following is a listing of the executable programs contained in this
+     archive:
+
+     PMTEST            A simplistic program that demonstrates the OOP extensions
+                       to JPI's M2.
+
+     SOUND             Simply sounds a beep on the desktop and ends.
+
+     SCROLLBR          Puts a giant scollbar on the desktop.  You should run
+                       this from a full screen session since there are no
+                       provisions to shutdown this program.
+
+     FAMILY            Creates a "family" of client windows demonstrating the
+                       relationship between a client window and its siblings.
+
+     DEFWIN            Simple standard client window.
+
+     BEEP              Adds menu options to a window.
+
+     STDWIN            Another way of creating a standard client window.
+
+     WMPAINT           Places text in the center of window and automatically
+                       recenters the text when the window is resized.
+
+     MESSAGES          An interesting way to see the actual messages that are
+                       being sent to a window.  This is in some ways a cruder
+                       version of PMSPY.  Program will start beeping a few
+                       seconds before a window appears.
+
+     STATIC            Clicking the left mouse button will draw text on the
+                       window at the current pointer position.
+
+
+
+                                        - 2 -
+
+
+     Writing OS/2 PM Programs in Modula-2         October 4, 1990         Page 3
+
+
+
+     ROTATE            My favorite program so far!  This creates a client window
+                       with the four quadrants of the window set to a different
+                       color.  When you press start, the colors will appear to
+                       rotate as each quadrant changes colors.  Provisions are
+                       available to change the speed of rotation as well as the
+                       colors.  Be sure to minimize this to see an example of a
+                       "moving" icon.  Neat!
+
+     BEEPS             Simple example of adding a menu bar to a window.
+
+     BUTTONS           Puts two 3-D buttons in the middle of the screen whose
+                       purpose will be obvious.
+
+     RADIOBUT          Another nice program that demonstrates the use of radio
+                       buttons.  Selecting each button will change the desktop
+                       background color to the indicated color.  Upon exit, the
+                       program will restore the color to its original value.
+
+     CHECKBOX          Places a checkbox on the screen that when checked will
+                       cause a beep to be heard when the window is resized.
+
+     CLICK             Pressing the left mouse button anywhere on the screen
+                       will sound a beep.
+
+     ERASEBKG          Clears the client windows background.
+
+     POSITION          Similar to click, except if you click in the left hand
+                       quarter of the window a high pitched beep will be heard.
+                       Clicking on the right side of the window will sound a
+                       lower pitched beep.
+
+     POSTMSG           When the left mouse button is pressed anywhere on the
+                       window, the program will end.
+
+     BEEPSKBD          Demonstrates the addition of keyboard input to the menu
+                       of a client window.
+
+     BEEPSACC          Similar to BEEPSKBD, but uses the accelerator option in
+                       the resource file to add keystroke input to the window.
+
+     ENTRY             Creates a text entry box for you to enter a short
+                       message.
+
+     LISTBOX           Shows how to create a scolling listbox in a window.
+
+     SCROLL            Supposed to display a long list of text that can be
+                       displayed by moving the scrollbar.  There is a bug that
+                       needs to be fixed!
+
+     STRING            Posts messages taken from a resource file.
+
+     ICON              Shows how to add an icon resource bitmap to a program so
+                       that an icon will be shown when the window is minimized.
+
+
+
+
+                                        - 3 -
+
+
+     Writing OS/2 PM Programs in Modula-2         October 4, 1990         Page 4
+
+
+
+     POINTR            Demonstrates how to change the shape of a pointer in your
+                       application.
+
+     CUSTOM            Supposed to show how to add a custom defined resource to
+                       a program.  There is a bug in this program that I haven't
+                       had a chance to fix.
+
+     ---------------------------------------------------------------------------
+
+     History
+
+     August 1990 - First release of PM-M2 zip file.
+
+     October 1990 - Updated release of PM-M2 with numerous fixes and many
+     program additions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 4 -
+

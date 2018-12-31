@@ -4,7 +4,7 @@
 (* Robert Lafore                                                              *)
 (*                                                                            *)
 (* Example programs converted to JPI Modula-2 Version 2 for OS/2 1.2 by       *)
-(* Chris Barker, August 1990                                                  *)
+(* Chris Barker, October 1990                                                 *)
 (*                                                                            *)
 (* Notes:  I am distributing these programs so that others can learn and also *)
 (*         so I can elicit feedback from the user community on programming for*)
@@ -34,14 +34,16 @@
 (*                                                                            *)
 (*----------------------------------------------------------------------------*)
 
+(*# call(same_ds => off) *)
+(*# data(heap_size=> 3000) *)
+
 MODULE BUTTONS;
 
-(*# call(same_ds => off) *)
-
-IMPORT OS2DEF,Win,Gpi,Dos,Lib,SYSTEM,IO;
+IMPORT OS2DEF,Win,Gpi,Dos,Lib,SYSTEM;
 FROM OS2DEF IMPORT HDC,HRGN,HAB,HPS,HBITMAP,HWND,HMODULE,HSEM,
                    POINTL,RECTL,PID,TID,LSET,NULL,
                    COLOR,NullVar,NullStr,BOOL ;
+FROM OS2MAC IMPORT SHORT1FROMMP,SHORT2FROMMP,MPFROMSHORT,MPFROM2SHORT;
 
 TYPE
   StrPtr = POINTER TO ARRAY[0..0] OF CHAR;
@@ -63,7 +65,9 @@ VAR
   r             : Win.MRESULT;
   flcreateFlags : LSET;
 
+(*--------------------  Error reporting procedure  ---------------------*)
 PROCEDURE Error;
+VAR
 BEGIN
 END Error;
 
@@ -91,7 +95,9 @@ VAR
 BEGIN
   CASE msg OF
     | Win.WM_CREATE :
-        Win.PostMsg(hwnd,CWPM_CREATE,0,0);
+        IF NOT Win.PostMsg(hwnd,CWPM_CREATE,0,0) THEN
+          Error;
+        END;
         RETURN Win.MPARAM(FALSE);
 
     | CWPM_CREATE :
@@ -120,23 +126,17 @@ BEGIN
                           hwnd,
                           Win.HWND_TOP,ID_BUTTON2,NIL,NIL);
 
-        RETURN Win.MPARAM(TRUE);
-
 
     | Win.WM_COMMAND :
-        cm := Win.COMMANDMSG(mp2);
-        IF cm.source = Win.CMDSRC_PUSHBUTTON THEN
-          cm := Win.COMMANDMSG(mp1);
-          IF cm.source = ID_BUTTON1 THEN
+        IF (SHORT1FROMMP(mp2) = Win.CMDSRC_PUSHBUTTON) THEN
+          IF (SHORT1FROMMP(mp1) = ID_BUTTON1) THEN
             Win.Alarm(Win.HWND_DESKTOP,Win.WA_NOTE);
           ELSE
-            cm := Win.COMMANDMSG(mp1);
-            IF cm.source = ID_BUTTON2 THEN
+            IF (SHORT1FROMMP(mp1) = ID_BUTTON2) THEN
               Win.PostMsg(hwnd,Win.WM_QUIT,0,0);
             END;
           END;
         END;
-        RETURN Win.MPARAM(TRUE);
 
 
     | Win.WM_ERASEBACKGROUND :
@@ -202,3 +202,4 @@ BEGIN
   HALT;
 
 END BUTTONS.
+

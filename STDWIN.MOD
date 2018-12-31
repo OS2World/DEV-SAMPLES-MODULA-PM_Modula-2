@@ -33,14 +33,17 @@
 (*    Source code on page 55.                                                 *)
 (*                                                                            *)
 (*----------------------------------------------------------------------------*)
-MODULE STDWIN;
 
 (*# call(same_ds => off) *)
+(*# data(heap_size=> 3000) *)
+
+MODULE STDWIN;
 
 IMPORT OS2DEF,Win,Gpi,Dos,Lib,SYSTEM;
 FROM OS2DEF IMPORT HDC,HRGN,HAB,HPS,HBITMAP,HWND,HMODULE,HSEM,
                    POINTL,RECTL,PID,TID,LSET,NULL,
                    COLOR,NullVar,NullStr,BOOL ;
+FROM OS2MAC IMPORT SHORT1FROMMP,SHORT2FROMMP,MPFROMSHORT,MPFROM2SHORT;
 
 TYPE
   StrPtr = POINTER TO ARRAY[0..0] OF CHAR;
@@ -99,3 +102,4 @@ BEGIN
 
 END STDWIN.
 
+
